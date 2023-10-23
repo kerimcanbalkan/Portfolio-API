@@ -1,15 +1,15 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/kerimcanbalkan/Portfolio-API/config"
+	"github.com/kerimcanbalkan/Portfolio-API/routes"
 )
 
 func main() {
 	router := gin.New()
-	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello World")
-	})
+	config.Connect()
+	routes.ProjectRoute(router)
+	routes.MessageRoute(router)
 	router.Run(":8080")
 }
