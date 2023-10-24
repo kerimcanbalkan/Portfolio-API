@@ -1,11 +1,18 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"github.com/asaskevich/govalidator"
+	"gorm.io/gorm"
+)
+
+func init() {
+	govalidator.SetFieldsRequiredByDefault(false)
+}
 
 type Message struct {
 	gorm.Model
-	Id      int    `json:"ID" gorm:"primary_key"`
+	ID      uint   `json:"ID" gorm:"primary_key;unique"`
 	Name    string `json:"name"`
-	Email   string `json:"email"`
+	Email   string `json:"email" valid:"email"`
 	Message string `json:"message"`
 }

@@ -7,5 +7,5 @@ import (
 )
 
 func ProjectController(c *gin.Context) {
-	c.String(http.StatusOK, "Hello From Projects")
+	c.String(http.StatusOK, "Hello World")
 }
