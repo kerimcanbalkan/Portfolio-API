@@ -6,8 +6,8 @@ import (
 )
 
 func MessageRoute(router *gin.Engine) {
-	router.GET("/messages", controller.GetMessages)
-	router.GET("/messages/:id", controller.GetMessageById)
-	router.POST("/messages", controller.CreateMessage)
-	router.DELETE("/messages/:id", controller.DeleteMessage)
+	router.GET("/api/messages", controller.GetMessages)
+	router.GET("/api/messages/:id", controller.GetMessageById)
+	router.POST("/api/messages", controller.CreateMessage)
+	router.DELETE("/api/messages/:id", controller.DeleteMessage)
 }

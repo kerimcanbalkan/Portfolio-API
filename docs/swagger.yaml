@@ -1,9 +1,194 @@
 basePath: /api
+definitions:
+  controller.CreateMessageRequest:
+    properties:
+      email:
+        type: string
+      message:
+        type: string
+      name:
+        type: string
+    type: object
+  controller.jsonResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Message:
+    properties:
+      ID:
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.Project:
+    properties:
+      ID:
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      description:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact: {}
   description: Api for my portfolio website
   title: Portfolio API
   version: "1.0"
-paths: {}
+paths:
+  /messages:
+    get:
+      description: Get a list of all messages
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Message'
+            type: array
+      summary: Retrieve all messages
+    post:
+      consumes:
+      - application/json
+      description: Create and save a new message in the database
+      parameters:
+      - description: Message object
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CreateMessageRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Message'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.jsonResponse'
+      summary: Create a message
+  /messages/{id}:
+    delete:
+      description: Delete a message by its ID
+      parameters:
+      - description: Message ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/controller.jsonResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.jsonResponse'
+      summary: Delete a message by ID
+    get:
+      description: Get a message by its ID
+      parameters:
+      - description: Message ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Message'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/controller.jsonResponse'
+      summary: Retrieve a message by ID
+  /projects:
+    get:
+      description: Get a list of all projects
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Project'
+            type: array
+      summary: Retrieve all projects
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create and save a new project with an uploaded image in the database
+      parameters:
+      - description: Title of the project
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Description of the project
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: Image file to upload
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/controller.jsonResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.jsonResponse'
+      summary: Create a project
 swagger: "2.0"

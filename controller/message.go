@@ -12,6 +12,16 @@ import (
 	"gorm.io/gorm"
 )
 
+type jsonResponse struct {
+	Error string `json:"error"`
+}
+
+type CreateMessageRequest struct {
+	Name    string `json:"name"`
+	Email   string `json:"email"`
+	Message string `json:"message"`
+}
+
 // GetMessages godoc
 // @Summary Retrieve all messages
 // @Description Get a list of all messages
@@ -48,8 +58,8 @@ func GetMessageById(c *gin.Context) {
 // @Description Create and save a new message in the database
 // @Accept json
 // @Produce json
-// @Param message body models.Message true "Message object"
-// @Success 201 {object} models.message.Message
+// @Param message body CreateMessageRequest true "Message object"
+// @Success 201 {object} models.Message
 // @Failure 400 {object} jsonResponse
 // @Router /messages [post]
 func CreateMessage(c *gin.Context) {
