@@ -62,6 +62,7 @@ func CreateProject(c *gin.Context) {
 		Description: c.PostForm("description"),
 	}
 
+	project.ID = uuid.New()
 	// Insert the project into the database using GORM
 	config.DB.Create(&project)
 

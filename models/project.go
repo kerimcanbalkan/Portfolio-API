@@ -1,11 +1,14 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Project struct {
 	gorm.Model
-	Id          uint   `json:"ID" gorm:"primary_key;unique"`
-	Image       string `json:"image" gorm:"not null"`
-	Title       string `json:"title" gorm:"not null;unique"`
-	Description string `json:"description" gorm:"not null"`
+	ID          uuid.UUID `gorm:"type:uuid"`
+	Image       string    `json:"image" gorm:"not null"`
+	Title       string    `json:"title" gorm:"not null;unique"`
+	Description string    `json:"description" gorm:"not null"`
 }

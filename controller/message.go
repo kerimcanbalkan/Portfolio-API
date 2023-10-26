@@ -6,6 +6,7 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/kerimcanbalkan/Portfolio-API/config"
 	_ "github.com/kerimcanbalkan/Portfolio-API/docs"
 	"github.com/kerimcanbalkan/Portfolio-API/models"
@@ -69,14 +70,18 @@ func CreateMessage(c *gin.Context) {
 		return
 	}
 
+	message.ID = uuid.New()
+
 	// Perform validation using govalidator or other validation package.
 	if _, err := govalidator.ValidateStruct(&message); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// If validation passes, create the message.
-	config.DB.Create(&message)
+	if err := config.DB.Create(&message).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create message"})
+		return
+	}
 
 	c.JSON(http.StatusCreated, &message)
 }

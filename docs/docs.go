@@ -241,9 +241,6 @@ const docTemplate = `{
         "models.Message": {
             "type": "object",
             "properties": {
-                "ID": {
-                    "type": "integer"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -254,7 +251,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "message": {
                     "type": "string"
@@ -270,9 +267,6 @@ const docTemplate = `{
         "models.Project": {
             "type": "object",
             "properties": {
-                "ID": {
-                    "type": "integer"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -283,7 +277,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "image": {
                     "type": "string"

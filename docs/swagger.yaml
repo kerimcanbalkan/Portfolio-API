@@ -24,8 +24,6 @@ definitions:
     type: object
   models.Message:
     properties:
-      ID:
-        type: integer
       createdAt:
         type: string
       deletedAt:
@@ -33,7 +31,7 @@ definitions:
       email:
         type: string
       id:
-        type: integer
+        type: string
       message:
         type: string
       name:
@@ -43,8 +41,6 @@ definitions:
     type: object
   models.Project:
     properties:
-      ID:
-        type: integer
       createdAt:
         type: string
       deletedAt:
@@ -52,7 +48,7 @@ definitions:
       description:
         type: string
       id:
-        type: integer
+        type: string
       image:
         type: string
       title:
