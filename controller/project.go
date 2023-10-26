@@ -31,8 +31,8 @@ func GetProjects(c *gin.Context) {
 // @Param title formData string true "Title of the project"
 // @Param description formData string true "Description of the project"
 // @Param image formData file true "Image file to upload"
-// @Success 201 {object} types.jsonResponse
-// @Failure 400 {object} types.jsonResponse
+// @Success 201 {object} types.AppError
+// @Failure 400 {object} types.AppError
 // @Router /projects [post]
 func CreateProject(c *gin.Context) {
 	// Parse form data to retrieve the uploaded image file

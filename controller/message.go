@@ -32,7 +32,7 @@ func GetMessages(c *gin.Context) {
 // @Produce json
 // @Param id path string true "Message ID"
 // @Success 200 {object} models.Message
-// @Failure 404 {object} types.jsonResponse
+// @Failure 404 {object} types.AppError
 // @Router /messages/{id} [get]
 func GetMessageById(c *gin.Context) {
 	id := c.Param("id")
@@ -52,7 +52,7 @@ func GetMessageById(c *gin.Context) {
 // @Produce json
 // @Param message body types.CreateMessageRequest true "Message object"
 // @Success 201 {object} models.Message
-// @Failure 400 {object} types.jsonResponse
+// @Failure 400 {object} types.AppError
 // @Router /messages [post]
 func CreateMessage(c *gin.Context) {
 	var message models.Message
@@ -83,8 +83,8 @@ func CreateMessage(c *gin.Context) {
 // @Produce json
 // @Param id path string true "Message ID"
 // @Success 204 "No Content"
-// @Failure 404 {object} types.jsonResponse
-// @Failure 500 {object} types.jsonResponse
+// @Failure 404 {object} types.AppError
+// @Failure 500 {object} types.AppError
 // @Router /messages/{id} [delete]
 func DeleteMessage(c *gin.Context) {
 	id := c.Param("id")

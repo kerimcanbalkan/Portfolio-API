@@ -64,7 +64,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.jsonResponse"
+                            "$ref": "#/definitions/types.AppError"
                         }
                     }
                 }
@@ -96,7 +96,7 @@ const docTemplate = `{
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/types.jsonResponse"
+                            "$ref": "#/definitions/types.AppError"
                         }
                     }
                 }
@@ -123,13 +123,13 @@ const docTemplate = `{
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/types.jsonResponse"
+                            "$ref": "#/definitions/types.AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/types.jsonResponse"
+                            "$ref": "#/definitions/types.AppError"
                         }
                     }
                 }
@@ -190,13 +190,13 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/types.jsonResponse"
+                            "$ref": "#/definitions/types.AppError"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/types.jsonResponse"
+                            "$ref": "#/definitions/types.AppError"
                         }
                     }
                 }
@@ -268,6 +268,14 @@ const docTemplate = `{
                 }
             }
         },
+        "types.AppError": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
         "types.CreateMessageRequest": {
             "type": "object",
             "properties": {
@@ -278,14 +286,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.jsonResponse": {
-            "type": "object",
-            "properties": {
-                "error": {
                     "type": "string"
                 }
             }

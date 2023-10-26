@@ -42,6 +42,11 @@ definitions:
       updatedAt:
         type: string
     type: object
+  types.AppError:
+    properties:
+      error:
+        type: string
+    type: object
   types.CreateMessageRequest:
     properties:
       email:
@@ -49,11 +54,6 @@ definitions:
       message:
         type: string
       name:
-        type: string
-    type: object
-  types.jsonResponse:
-    properties:
-      error:
         type: string
     type: object
 host: localhost:8080
@@ -97,7 +97,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.jsonResponse'
+            $ref: '#/definitions/types.AppError'
       summary: Create a message
   /messages/{id}:
     delete:
@@ -116,11 +116,11 @@ paths:
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/types.jsonResponse'
+            $ref: '#/definitions/types.AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/types.jsonResponse'
+            $ref: '#/definitions/types.AppError'
       summary: Delete a message by ID
     get:
       description: Get a message by its ID
@@ -140,7 +140,7 @@ paths:
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/types.jsonResponse'
+            $ref: '#/definitions/types.AppError'
       summary: Retrieve a message by ID
   /projects:
     get:
@@ -181,10 +181,10 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/types.jsonResponse'
+            $ref: '#/definitions/types.AppError'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/types.jsonResponse'
+            $ref: '#/definitions/types.AppError'
       summary: Create a project
 swagger: "2.0"
