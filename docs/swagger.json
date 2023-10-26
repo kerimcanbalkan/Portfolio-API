@@ -44,7 +44,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controller.CreateMessageRequest"
+                            "$ref": "#/definitions/types.CreateMessageRequest"
                         }
                     }
                 ],
@@ -58,7 +58,7 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controller.jsonResponse"
+                            "$ref": "#/definitions/types.jsonResponse"
                         }
                     }
                 }
@@ -90,7 +90,7 @@
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/controller.jsonResponse"
+                            "$ref": "#/definitions/types.jsonResponse"
                         }
                     }
                 }
@@ -117,13 +117,13 @@
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/controller.jsonResponse"
+                            "$ref": "#/definitions/types.jsonResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/controller.jsonResponse"
+                            "$ref": "#/definitions/types.jsonResponse"
                         }
                     }
                 }
@@ -184,13 +184,13 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/controller.jsonResponse"
+                            "$ref": "#/definitions/types.jsonResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/controller.jsonResponse"
+                            "$ref": "#/definitions/types.jsonResponse"
                         }
                     }
                 }
@@ -198,28 +198,6 @@
         }
     },
     "definitions": {
-        "controller.CreateMessageRequest": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "controller.jsonResponse": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
         "gorm.DeletedAt": {
             "type": "object",
             "properties": {
@@ -280,6 +258,28 @@
                     "type": "string"
                 },
                 "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.CreateMessageRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.jsonResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
                     "type": "string"
                 }
             }

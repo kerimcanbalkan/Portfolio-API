@@ -9,6 +9,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/kerimcanbalkan/Portfolio-API/config"
 	"github.com/kerimcanbalkan/Portfolio-API/models"
+	_ "github.com/kerimcanbalkan/Portfolio-API/types"
 )
 
 // GetProjects godoc
@@ -30,8 +31,8 @@ func GetProjects(c *gin.Context) {
 // @Param title formData string true "Title of the project"
 // @Param description formData string true "Description of the project"
 // @Param image formData file true "Image file to upload"
-// @Success 201 {object} jsonResponse
-// @Failure 400 {object} jsonResponse
+// @Success 201 {object} types.jsonResponse
+// @Failure 400 {object} types.jsonResponse
 // @Router /projects [post]
 func CreateProject(c *gin.Context) {
 	// Parse form data to retrieve the uploaded image file
@@ -64,7 +65,10 @@ func CreateProject(c *gin.Context) {
 
 	project.ID = uuid.New()
 	// Insert the project into the database using GORM
-	config.DB.Create(&project)
+	if err := config.DB.Create(&project).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
 
 	c.JSON(http.StatusCreated, &project)
 }
