@@ -18,11 +18,12 @@ import (
 // @host localhost:8080
 // @BasePath /api
 func main() {
-	router := gin.New()
+	router := gin.Default()
 	// add swagger
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	config.Connect()
 	routes.ProjectRoute(router)
 	routes.MessageRoute(router)
+	routes.ProjectImageRoute(router)
 	router.Run(":8080")
 }

@@ -11,6 +11,7 @@ import (
 	_ "github.com/kerimcanbalkan/Portfolio-API/docs"
 	"github.com/kerimcanbalkan/Portfolio-API/models"
 	_ "github.com/kerimcanbalkan/Portfolio-API/types"
+	"gopkg.in/gomail.v2"
 	"gorm.io/gorm"
 )
 
@@ -74,7 +75,30 @@ func CreateMessage(c *gin.Context) {
 		return
 	}
 
+	// Send an email with the message content
+	if err := sendEmail(message); err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
+
 	c.JSON(http.StatusCreated, &message)
+}
+
+func sendEmail(message models.Message) error {
+	m := gomail.NewMessage()
+	m.SetHeader("From", "kerimcanbalkanportfolio@gmail.com")
+	m.SetHeader("To", "kerimcanbalkan@gmail.com")
+	m.SetHeader("Subject", message.Name+"/ "+message.Email)
+	m.SetBody("text/plain", "A new message has been created:\n\n"+message.Message)
+
+	d := gomail.NewDialer("smtp.gmail.com", 587, "kerimcanbalkanportfolio@gmail.com", "jwfw mcnm oxvi mcrp")
+
+	// Send the email
+	if err := d.DialAndSend(m); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // DeleteMessage godoc
