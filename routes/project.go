@@ -8,4 +8,5 @@ import (
 func ProjectRoute(router *gin.Engine) {
 	router.GET("/api/projects", controller.GetProjects)
 	router.POST("/api/projects", controller.CreateProject)
+	router.PATCH("api/projects/:id", controller.UpdateProject)
 }

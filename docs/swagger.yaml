@@ -187,4 +187,41 @@ paths:
           schema:
             $ref: '#/definitions/types.AppError'
       summary: Create a project
+  /projects/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Update an existing project in the database
+      parameters:
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated title of the project
+        in: formData
+        name: title
+        type: string
+      - description: Updated description of the project
+        in: formData
+        name: description
+        type: string
+      - description: Image file to upload
+        in: formData
+        name: image
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/types.AppError'
+        "404":
+          description: Project not found
+      summary: Update a project
 swagger: "2.0"

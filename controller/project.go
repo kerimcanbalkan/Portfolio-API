@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	_ "os"
 	"path/filepath"
@@ -71,4 +72,75 @@ func CreateProject(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, &project)
+}
+
+// @Summary Update a project
+// @Description Update an existing project in the database
+// @Accept json
+// @Produce json
+// @Param id path string true "Project ID"
+// @Param title formData string false "Updated title of the project"
+// @Param description formData string false "Updated description of the project"
+// @Param image formData file false "Image file to upload"
+// @Success 200 {object} models.Project
+// @Failure 400 {object} types.AppError
+// @Failure 404 "Project not found"
+// @Router /projects/{id} [patch]
+func UpdateProject(c *gin.Context) {
+	id := c.Param("id")
+	var existingProject models.Project
+
+	if err := config.DB.Where("id = ?", id).First(&existingProject).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Project not found"})
+		return
+	}
+
+	fmt.Print(existingProject.Title)
+
+	updatedFilePath := ""
+	file, err := c.FormFile("image")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Image upload failed"})
+		return
+	}
+
+	if file != nil {
+		fileExt := filepath.Ext(file.Filename)
+		filename := uuid.New().String() + fileExt
+
+		imagePath := filepath.Join("upload_directory", filename)
+
+		// Save the uploaded image to the specified path
+		if err := c.SaveUploadedFile(file, imagePath); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save image"})
+			return
+		}
+
+		updatedFilePath = imagePath
+
+	}
+
+	// Check if the title and description are provided in the request
+	updatedTitle := c.PostForm("title")
+	updatedDescription := c.PostForm("description")
+
+	if updatedTitle != "" {
+		existingProject.Title = updatedTitle
+	}
+
+	if updatedDescription != "" {
+		existingProject.Description = updatedDescription
+	}
+
+	if updatedFilePath != "" {
+		existingProject.Image = updatedFilePath
+	}
+
+	// Update the project in the database
+	if err := config.DB.Save(&existingProject).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update project"})
+		return
+	}
+
+	c.JSON(http.StatusOK, existingProject)
 }
