@@ -25,5 +25,6 @@ func main() {
 	routes.ProjectRoute(router)
 	routes.MessageRoute(router)
 	routes.ProjectImageRoute(router)
+	routes.AuthenticationRoute(router)
 	router.Run(":8080")
 }

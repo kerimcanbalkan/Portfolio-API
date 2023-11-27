@@ -16,4 +16,5 @@ func Connect() {
 	DB = db
 	db.AutoMigrate(&models.Message{})
 	db.AutoMigrate(&models.Project{})
+	db.AutoMigrate(&models.Admin{})
 }

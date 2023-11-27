@@ -54,30 +54,8 @@ func uploadFile(c *gin.Context) string {
 // @Failure 400 {object} types.AppError
 // @Router /projects [post]
 func CreateProject(c *gin.Context) {
-	// // Parse form data to retrieve the uploaded image file
-	// file, err := c.FormFile("image")
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Image upload failed"})
-	// 	return
-	// }
-	//
-	// // Generate a unique filename for the image using a UUID
-	// fileExt := filepath.Ext(file.Filename)
-	// filename := uuid.New().String() + fileExt
-	//
-	// // Set the path where you want to save the uploaded image
-	// imagePath := filepath.Join("upload_directory", filename)
-	//
-	// // Save the uploaded image to the specified path
-	// if err := c.SaveUploadedFile(file, imagePath); err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save image"})
-	// 	return
-	// }
-
 	imagePath := uploadFile(c)
 
-	// Now, you can create a new project record in the database
-	// and store the imagePath in the 'Image' field of the Project model
 	project := models.Project{
 		Image:       imagePath,
 		Title:       c.PostForm("title"),

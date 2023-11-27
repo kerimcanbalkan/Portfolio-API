@@ -5,3 +5,7 @@ type CreateMessageRequest struct {
 	Email   string `json:"email"`
 	Message string `json:"message"`
 }
+
+type CreateProjectRequest struct {
+	Title string `json:"title"`
+}
