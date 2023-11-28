@@ -15,11 +15,54 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/auth": {
+            "post": {
+                "description": "Authenticate admin user and generate JWT token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Authenticate admin user",
+                "parameters": [
+                    {
+                        "description": "Admin credentials",
+                        "name": "admin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.LoginInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JWT token",
+                        "schema": {
+                            "$ref": "#/definitions/types.LoginResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/types.AppError"
+                        }
+                    }
+                }
+            }
+        },
         "/messages": {
             "get": {
                 "description": "Get a list of all messages",
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Messages"
                 ],
                 "summary": "Retrieve all messages",
                 "responses": {
@@ -41,6 +84,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Messages"
                 ],
                 "summary": "Create a message",
                 "parameters": [
@@ -76,6 +122,9 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Messages"
+                ],
                 "summary": "Retrieve a message by ID",
                 "parameters": [
                     {
@@ -105,6 +154,9 @@ const docTemplate = `{
                 "description": "Delete a message by its ID",
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Messages"
                 ],
                 "summary": "Delete a message by ID",
                 "parameters": [
@@ -162,6 +214,9 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Projects"
+                ],
                 "summary": "Create a project",
                 "parameters": [
                     {
@@ -210,6 +265,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Projects"
                 ],
                 "summary": "Update a project",
                 "parameters": [
@@ -342,6 +400,29 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.LoginInput": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
                     "type": "string"
                 }
             }

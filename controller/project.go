@@ -18,6 +18,7 @@ import (
 // @Produce json
 // @Success 200 {array} models.Project
 // @Router /projects [get]
+// @Tags Projects
 func GetProjects(c *gin.Context) {
 	projects := []models.Project{}
 	config.DB.Find(&projects)
@@ -53,6 +54,7 @@ func uploadFile(c *gin.Context) string {
 // @Success 201 {object} types.AppError
 // @Failure 400 {object} types.AppError
 // @Router /projects [post]
+// @Tags Projects
 func CreateProject(c *gin.Context) {
 	imagePath := uploadFile(c)
 
@@ -84,6 +86,7 @@ func CreateProject(c *gin.Context) {
 // @Failure 400 {object} types.AppError
 // @Failure 404 "Project not found"
 // @Router /projects/{id} [patch]
+// @Tags Projects
 func UpdateProject(c *gin.Context) {
 	id := c.Param("id")
 	var existingProject models.Project

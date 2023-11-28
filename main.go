@@ -3,7 +3,10 @@ package main
 import (
 
 	// Import "docs" for Swagger documentation generation.
+	"log"
+
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/kerimcanbalkan/Portfolio-API/config"
 	_ "github.com/kerimcanbalkan/Portfolio-API/docs"
 	"github.com/kerimcanbalkan/Portfolio-API/routes"
@@ -18,6 +21,10 @@ import (
 // @host localhost:8080
 // @BasePath /api
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	router := gin.Default()
 	// add swagger
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

@@ -21,6 +21,7 @@ import (
 // @Produce json
 // @Success 200 {array} models.Message
 // @Router /messages [get]
+// @Tags Messages
 func GetMessages(c *gin.Context) {
 	messages := []models.Message{}
 	config.DB.Find(&messages)
@@ -35,6 +36,7 @@ func GetMessages(c *gin.Context) {
 // @Success 200 {object} models.Message
 // @Failure 404 {object} types.AppError
 // @Router /messages/{id} [get]
+// @Tags Messages
 func GetMessageById(c *gin.Context) {
 	id := c.Param("id")
 	var message models.Message
@@ -55,6 +57,7 @@ func GetMessageById(c *gin.Context) {
 // @Success 201 {object} models.Message
 // @Failure 400 {object} types.AppError
 // @Router /messages [post]
+// @Tags Messages
 func CreateMessage(c *gin.Context) {
 	var message models.Message
 	if err := c.BindJSON(&message); err != nil {
@@ -110,6 +113,7 @@ func sendEmail(message models.Message) error {
 // @Failure 404 {object} types.AppError
 // @Failure 500 {object} types.AppError
 // @Router /messages/{id} [delete]
+// @Tags Messages
 func DeleteMessage(c *gin.Context) {
 	id := c.Param("id")
 
