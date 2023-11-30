@@ -17,8 +17,13 @@ import (
 // @title Portfolio API
 // @version 1.0
 // @description Api for my portfolio website
-
 // @host localhost:8080
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+
+// @BasePath /api
+// @schemes http
 // @BasePath /api
 func main() {
 	err := godotenv.Load()

@@ -53,8 +53,9 @@ func uploadFile(c *gin.Context) string {
 // @Param image formData file true "Image file to upload"
 // @Success 201 {object} types.AppError
 // @Failure 400 {object} types.AppError
-// @Router /projects [post]
+// @Router /admin/projects [post]
 // @Tags Projects
+// @Security BearerAuth
 func CreateProject(c *gin.Context) {
 	imagePath := uploadFile(c)
 
@@ -85,8 +86,9 @@ func CreateProject(c *gin.Context) {
 // @Success 200 {object} models.Project
 // @Failure 400 {object} types.AppError
 // @Failure 404 "Project not found"
-// @Router /projects/{id} [patch]
+// @Router /admin/projects/{id} [patch]
 // @Tags Projects
+// @Security BearerAuth
 func UpdateProject(c *gin.Context) {
 	id := c.Param("id")
 	var existingProject models.Project

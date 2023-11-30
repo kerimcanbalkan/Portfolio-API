@@ -7,6 +7,4 @@ import (
 
 func AuthenticationRoute(router *gin.Engine) {
 	router.POST("/api/auth", controller.Login)
-	router.GET("/api/auth", controller.GetAdmin)
-	router.POST("/api/authcreate", controller.CreateAdmin)
 }

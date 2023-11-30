@@ -20,8 +20,9 @@ import (
 // @Description Get a list of all messages
 // @Produce json
 // @Success 200 {array} models.Message
-// @Router /messages [get]
+// @Router /admin/messages [get]
 // @Tags Messages
+// @Security BearerAuth
 func GetMessages(c *gin.Context) {
 	messages := []models.Message{}
 	config.DB.Find(&messages)
@@ -35,8 +36,9 @@ func GetMessages(c *gin.Context) {
 // @Param id path string true "Message ID"
 // @Success 200 {object} models.Message
 // @Failure 404 {object} types.AppError
-// @Router /messages/{id} [get]
+// @Router /admin/messages/{id} [get]
 // @Tags Messages
+// @Security BearerAuth
 func GetMessageById(c *gin.Context) {
 	id := c.Param("id")
 	var message models.Message
@@ -112,8 +114,9 @@ func sendEmail(message models.Message) error {
 // @Success 204 "No Content"
 // @Failure 404 {object} types.AppError
 // @Failure 500 {object} types.AppError
-// @Router /messages/{id} [delete]
+// @Router /admin/messages/{id} [delete]
 // @Tags Messages
+// @Security BearerAuth
 func DeleteMessage(c *gin.Context) {
 	id := c.Param("id")
 
