@@ -5,6 +5,7 @@ import (
 	// Import "docs" for Swagger documentation generation.
 	"log"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/kerimcanbalkan/Portfolio-API/config"
@@ -31,6 +32,8 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 	router := gin.Default()
+	router.Use(cors.Default())
+
 	// add swagger
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	config.Connect()
